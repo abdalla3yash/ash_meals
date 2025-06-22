@@ -75,7 +75,6 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   bool _obscureText = true;
   Timer? _debounce;
-  final _debounceDuration = const Duration(milliseconds: 500);
 
   void _toggle() => setState(() =>_obscureText = !_obscureText);
 
@@ -85,12 +84,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     super.dispose();
   }
 
-   void _onSearchChanged(String text) {
-    if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(_debounceDuration, () {
-      widget.onChange!(text);
-    });
-  }
+   
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +111,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
         }
         FocusScope.of(context).requestFocus(widget.nextNode); 
       },     
-      onChanged: _onSearchChanged,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       inputFormatters: [widget.isPhoneNumber ? FilteringTextInputFormatter.digitsOnly : FilteringTextInputFormatter.singleLineFormatter],
       validator: widget.validate,

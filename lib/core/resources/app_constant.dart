@@ -3,4 +3,6 @@ class AppConstant {
     static const String contentType = "Content-Type";
     static const String accept = "accept";
     static const String applicationJson = "application/json";
+    static const String cartBox = "cartBox";
+
 }

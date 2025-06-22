@@ -25,4 +25,5 @@ class ApiClient {
 
   Future<Response> get({required String url, Map<String, dynamic>? queryParameters}) async => await _dio.get(url, queryParameters: queryParameters);
   
+  Future<Response> post({required String url, var requestBody, Map<String, dynamic>? queryParameters, ProgressCallback? onSendProgress}) async => await _dio.post(url, queryParameters: queryParameters, data: requestBody, onSendProgress: onSendProgress);
 }

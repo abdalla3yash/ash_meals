@@ -1,9 +1,14 @@
 import 'package:ash_cart/core/resources/resources.dart';
 import 'package:ash_cart/core/view/components/tap_effect.dart';
-import 'package:ash_cart/features/products/domain/entity/product_entity.dart';
+import 'package:ash_cart/core/view/widgets/cusom_add_remove_widget.dart';
+import 'package:ash_cart/features/cart/presentation/cubit/init_product_card/init_product_cart_cubit.dart';
+import 'package:ash_cart/features/products/domain/entity/products_entity.dart';
+import 'package:ash_cart/features/products/presentation/cubit/product_details/product_details_cubit.dart';
+import 'package:ash_cart/features/products/presentation/view/product_details_bottomsheet.dart';
 import 'package:awesome_extensions/awesome_extensions_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,7 +19,11 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TapEffect(
-      onClick: (){},
+      onClick: (){
+        context.read<ProductDetailsCubit>().fetchProduct(entity.id.toString());
+        context.read<InitProductCartCubit>().resetValues();
+       productDetailsBottomSheet(context, entity.id.toString());
+      },
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.white,
@@ -83,17 +92,7 @@ class ProductCard extends StatelessWidget {
                   Positioned(
                     top: 0,
                     right: 8,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration:  BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(8.r),
-                        gradient: LinearGradient(colors: [AppColors.primary, AppColors.secandry], begin: Alignment.topLeft, end: Alignment.bottomRight),
-                        boxShadow: [BoxShadow(color:AppColors.hintTextColor, offset: Offset(0, 1), blurRadius: 8)],
-                      ),
-                      child: const Icon(Icons.add, color: Colors.white, size: 18),
-                    ),
+                    child: CustomAddRemoveWidget(icon: Icons.add, onTap: (){}) 
                   ),
                 ],
               ),
@@ -104,3 +103,4 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
+

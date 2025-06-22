@@ -1,6 +1,6 @@
 
 import 'package:ash_cart/features/products/domain/entity/products_entity.dart';
-import 'package:ash_cart/features/products/domain/use_case/get_products_usecase.dart';
+import 'package:ash_cart/features/products/domain/usecase/get_products_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

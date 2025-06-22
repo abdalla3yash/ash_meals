@@ -4,6 +4,7 @@ import 'package:ash_cart/core/services/network/endpoints.dart';
 
 abstract class ProductsRemoteDataSource {
   Future<ApiResponse> fetchProducts();
+  Future<ApiResponse> fetchProductDetails(String productId);
 }
 
 class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
@@ -15,6 +16,16 @@ class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
   Future<ApiResponse> fetchProducts() async {
     try {
       final response = await _apiClient.get(url: EndPoints.productsApi);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(e);
+    }
+  }
+
+  @override
+  Future<ApiResponse> fetchProductDetails(String productId) async {
+    try {
+      final response = await _apiClient.get(url: "${EndPoints.productDetailsApi}/$productId");
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(e);
